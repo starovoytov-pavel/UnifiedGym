@@ -21,4 +21,15 @@ export default StyleSheet.create({
     marginTop: 16,
     fontSize: 16,
   },
+  exerciseImage: {
+    width: '100%',
+    height: 250,
+  }
+});
+
+export const tabsStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
 });

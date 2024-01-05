@@ -2,13 +2,11 @@ import React from 'react';
 
 import { View, Text } from 'react-native';
 
-import styles from '../styles/Dashboard';
+import styles from './DashboardStyle';
 
 const Dashboard = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dashboard</Text>
-
       <View style={styles.card}>
         <Text>Workout Progress</Text>
         {/* Add graphs/progress indicators here */}

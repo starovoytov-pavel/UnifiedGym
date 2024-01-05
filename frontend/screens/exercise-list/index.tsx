@@ -2,7 +2,7 @@ import React from "react";
 
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 
-import styles from '../styles/ExerciseList';
+import styles from './ExerciseListStyle';
 
 const ExerciseList = ({ navigation }: any) => {
   const exercises = [
