@@ -2,7 +2,7 @@ import React from 'react';
 
 import { View, Text } from 'react-native';
 
-import styles from './DashboardStyle';
+import styles from './styles';
 
 const Dashboard = () => {
   return (

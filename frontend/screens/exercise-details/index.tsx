@@ -1,24 +1,56 @@
-import React from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import { View, Text, Image } from "react-native";
+import { View, Image } from "react-native";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-import { ExerciseDetailsTabs } from "./Tabs";
+import { EXERCISE_DETAILS, ExerciseDetails } from "screens/exercise-list/constants";
 
-import styles from "./ExerciseDetailsStyle";
+import { ExerciseTabs } from "./Tabs";
 
-const ExerciseDetail = ({ route }: any) => {
-  const { id } = route.params;
+import styles from "./styles";
 
-  const exercise = {
-    id,
-    name: "Push-up",
-    description: "A basic push-up exercise.",
+type ExerciseStackParamList = {
+  ExerciseDetail: {
+    id: number;
+    title: string;
   };
+};
+
+type ExerciseDetailProps = {
+  route: RouteProp<ExerciseStackParamList, "ExerciseDetail">;
+  navigation: StackNavigationProp<ExerciseStackParamList, "ExerciseDetail">;
+} & any
+
+const ExerciseDetail: FC<ExerciseDetailProps> = ({
+  route,
+  navigation,
+}) => {
+  const { id } = route.params;
+  const [data, setData] = useState<ExerciseDetails | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      const currentExercise = EXERCISE_DETAILS.find(
+        (exercise) => exercise.id === id
+      );
+
+      setData(currentExercise || null);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (route.params?.title) {
+      navigation.setOptions({ title: route.params.title });
+    }
+  }, [route, navigation]);
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{exercise.name}</Text>
-
       <Image
         style={styles.exerciseImage}
         source={{
@@ -26,7 +58,7 @@ const ExerciseDetail = ({ route }: any) => {
         }}
       />
 
-      <ExerciseDetailsTabs />
+      <ExerciseTabs data={data} />
     </View>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Dashboard from "../screens/dashboard";
+import Dashboard from "screens/dashboard";
 import ExercisesNavigator from "./Exercises";
 
 const Tab = createBottomTabNavigator();

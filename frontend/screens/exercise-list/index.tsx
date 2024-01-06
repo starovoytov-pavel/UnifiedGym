@@ -1,33 +1,45 @@
 import React from "react";
 
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 
-import styles from './ExerciseListStyle';
+import { EXERCISE_CATEGORIES, ExerciseCategory, Exercise } from "./constants";
+
+import styles from "./styles";
 
 const ExerciseList = ({ navigation }: any) => {
-  const exercises = [
-    { id: "1", name: "Push-up" },
-    { id: "2", name: "Squat" },
-    // ...
-  ];
-
-  const renderItem = ({ item }: any) => (
+  const renderExercise = ({ item }: { item: Exercise }) => (
     <TouchableOpacity
-      style={styles.item}
-      onPress={() => navigation.navigate("ExerciseDetail", { id: item.id })}
+      style={styles.exerciseWrapper}
+      onPress={() =>
+        navigation.navigate("ExerciseDetail", { id: item.id, title: item.name })
+      }
     >
-      <Text style={styles.itemText}>{item.name}</Text>
+      {item?.path && <Image style={styles.exerciseImg} source={item.path} />}
+
+      <Text style={styles.exerciseText}>{item.name}</Text>
     </TouchableOpacity>
   );
 
-  return (
-    <View style={styles.container}>
+  const renderCategory = ({ item }: { item: ExerciseCategory }) => (
+    <View>
+      <Text style={styles.categoryTitle}>{item.name}</Text>
+
       <FlatList
-        data={exercises}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        data={item.exercises}
+        renderItem={renderExercise}
+        keyExtractor={(exercise) => String(exercise.id)}
+        numColumns={2}
+        key={EXERCISE_CATEGORIES.length}
       />
     </View>
+  );
+
+  return (
+    <FlatList
+      data={EXERCISE_CATEGORIES}
+      renderItem={renderCategory}
+      keyExtractor={(category) => String(category.id)}
+    />
   );
 };
 
