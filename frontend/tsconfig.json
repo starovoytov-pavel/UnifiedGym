@@ -13,6 +13,7 @@
       "api": ["api/*"],
       "assets": ["assets/*"],
       "components": ["components/*"],
+      "layouts": ["layouts/*"],
       "navigation": ["navigation/*"],
       "screens": ["screens/*"],
       "store": ["store/*"],

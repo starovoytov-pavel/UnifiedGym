@@ -1,58 +1,58 @@
 interface TabConfig {
+  key: string;
   name: string;
-  title: string;
   description: string;
 }
 
 export const TABS_CONFIG: TabConfig[] = [
   {
-    name: "overview",
-    title: "Overview",
+    key: "overview",
+    name: "Overview",
     description: "Общее описание упражнения",
   },
   {
-    name: "muscleGroup",
-    title: "Muscle Group",
+    key: "muscleGroup",
+    name: "Muscle Group",
     description: "Целевые мышечные группы",
   },
   {
-    name: "difficultyLevel",
-    title: "Difficulty Level",
+    key: "difficultyLevel",
+    name: "Difficulty Level",
     description: "Уровень сложности упражнения",
   },
   {
-    name: "technique",
-    title: "Technique",
+    key: "technique",
+    name: "Technique",
     description: "Описание техники выполнения",
   },
   {
-    name: "setsReps",
-    title: "Sets Reps",
+    key: "setsReps",
+    name: "Sets Reps",
     description: "Рекомендации по количеству подходов и повторений",
   },
   {
-    name: "variations",
-    title: "Variations",
+    key: "variations",
+    name: "Variations",
     description: "Вариации упражнения",
   },
   {
-    name: "visuals",
-    title: "Visuals",
+    key: "visuals",
+    name: "Visuals",
     description: "Визуальные материалы (видео)",
   },
   {
-    name: "commonMistakes",
-    title: "Common Mistakes",
+    key: "commonMistakes",
+    name: "Common Mistakes",
     description: "Распространенные ошибки",
   },
   {
-    name: "tips",
-    title: "Tips",
+    key: "tips",
+    name: "Tips",
     description: "Советы по выполнению",
   },
   {
-    name: "benefits",
-    title: "Benefits",
+    key: "benefits",
+    name: "Benefits",
     description: "Преимущества упражнения",
   },
 ];

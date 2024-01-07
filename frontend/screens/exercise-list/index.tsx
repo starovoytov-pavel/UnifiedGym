@@ -2,6 +2,8 @@ import React from "react";
 
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 
+import { DefaultLayout } from "layouts/DefaultLayout";
+
 import { EXERCISE_CATEGORIES, ExerciseCategory, Exercise } from "./constants";
 
 import styles from "./styles";
@@ -14,14 +16,14 @@ const ExerciseList = ({ navigation }: any) => {
         navigation.navigate("ExerciseDetail", { id: item.id, title: item.name })
       }
     >
-      {item?.path && <Image style={styles.exerciseImg} source={item.path} />}
+      {item?.uri && <Image style={styles.exerciseImg} source={item.uri} />}
 
       <Text style={styles.exerciseText}>{item.name}</Text>
     </TouchableOpacity>
   );
 
   const renderCategory = ({ item }: { item: ExerciseCategory }) => (
-    <View>
+    <View style={styles.categoryWrapper}>
       <Text style={styles.categoryTitle}>{item.name}</Text>
 
       <FlatList
@@ -35,11 +37,13 @@ const ExerciseList = ({ navigation }: any) => {
   );
 
   return (
-    <FlatList
-      data={EXERCISE_CATEGORIES}
-      renderItem={renderCategory}
-      keyExtractor={(category) => String(category.id)}
-    />
+    <DefaultLayout>
+      <FlatList
+        data={EXERCISE_CATEGORIES}
+        renderItem={renderCategory}
+        keyExtractor={(category) => String(category.id)}
+      />
+    </DefaultLayout>
   );
 };
 

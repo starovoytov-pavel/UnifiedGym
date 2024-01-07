@@ -22,6 +22,12 @@ import pullUpImage from 'assets/exercises/pull-up.png';
 import tricepDipsImage from 'assets/exercises/tricep-dips.png';
 import boxJumpImage from 'assets/exercises/box-jump.png';
 
+import pushUpGuideImage from 'assets/exercise-details/push-up-guide.png';
+import squatGuideImage from 'assets/exercise-details/squat-guide.png';
+import plankGuideImage from 'assets/exercise-details/plank-guide.png';
+import burpeeGuideImage from 'assets/exercise-details/burpee-guide.png';
+import lungeGuideImage from 'assets/exercise-details/lunge-guide.png';
+
 export interface ExerciseCategory {
   id: number;
   name: string;
@@ -31,12 +37,13 @@ export interface ExerciseCategory {
 export interface Exercise {
   id: number;
   name: string;
-  path?: ImageSourcePropType;
+  uri: ImageSourcePropType;
 }
 
 export interface ExerciseDetails {
   id: number;
   name: string;
+  uri?: ImageSourcePropType;
   overview: string;
   muscleGroup: string;
   difficultyLevel: string;
@@ -54,51 +61,51 @@ export const EXERCISE_CATEGORIES: ExerciseCategory[] = [
     id: 1,
     name: "Упражнения для Ног",
     exercises: [
-      { id: 2, name: "Приседания", path: squatImage },
-      { id: 5, name: "Выпады", path: lungeImage },
-      { id: 10, name: "Гиперэкстензия", path: hyperextensionImage },
-      { id: 16, name: "Сумо-приседания", path: sumoSquatsImage },
-      { id: 19, name: "Румынская тяга", path: romanianDeadliftImage },
-      { id: 20, name: "Боковые выпады", path: sideLungesImage }
+      { id: 2, name: "Приседания", uri: squatImage },
+      { id: 5, name: "Выпады", uri: lungeImage },
+      { id: 10, name: "Гиперэкстензия", uri: hyperextensionImage },
+      { id: 16, name: "Сумо-приседания", uri: sumoSquatsImage },
+      { id: 19, name: "Румынская тяга", uri: romanianDeadliftImage },
+      { id: 20, name: "Боковые выпады", uri: sideLungesImage },
+      { id: 15, name: "Подъемы на носки", uri: standingCalfRaisesImage },
     ]
   },
   {
     id: 2,
     name: "Упражнения для Рук и Плеч",
     exercises: [
-      { id: 1, name: "Отжимания", path: pushUpImage },
-      { id: 11, name: "Бицепс-керл с резинкой", path: bicepCurlImage },
-      { id: 12, name: "Жим ногами", path: legPressImage },
-      { id: 17, name: "Французский жим", path: frenchPressImage }
+      { id: 1, name: "Отжимания", uri: pushUpImage },
+      { id: 11, name: "Бицепс-керл с резинкой", uri: bicepCurlImage },
+      { id: 12, name: "Жим ногами", uri: legPressImage },
+      { id: 17, name: "Французский жим", uri: frenchPressImage }
     ]
   },
   {
     id: 3,
     name: "Упражнения для Пресса",
     exercises: [
-      { id: 3, name: "Планка", path: plankImage },
-      { id: 8, name: "Скручивания", path: crunchesImage },
-      { id: 13, name: "Пресс 'велосипед'", path: bicycleCrunchesImage },
-      { id: 9, name: "Подъемы ног", path: legRaisesImage }
+      { id: 3, name: "Планка", uri: plankImage },
+      { id: 8, name: "Скручивания", uri: crunchesImage },
+      { id: 13, name: "Пресс 'велосипед'", uri: bicycleCrunchesImage },
+      { id: 9, name: "Подъемы ног", uri: legRaisesImage }
     ]
   },
   {
     id: 4,
     name: "Упражнения для Спины",
     exercises: [
-      { id: 7, name: "Горизонтальная тяга", path: seatedCableRowImage },
-      { id: 15, name: "Подъемы на носки", path: standingCalfRaisesImage },
-      { id: 21, name: "Подтягивания", path: pullUpImage }
+      { id: 7, name: "Горизонтальная тяга", uri: seatedCableRowImage },
+      { id: 21, name: "Подтягивания", uri: pullUpImage }
     ]
   },
   {
     id: 5,
     name: "Комплексные Упражнения",
     exercises: [
-      { id: 4, name: "Берпи", path: burpeesImage },
-      { id: 14, name: "Обратные отжимания", path: tricepDipsImage },
-      { id: 6, name: "Боковые планки", path: sidePlankImage },
-      { id: 18, name: "Бёрпи с прыжком на короб", path: boxJumpImage }
+      { id: 4, name: "Берпи", uri: burpeesImage },
+      { id: 14, name: "Обратные отжимания", uri: tricepDipsImage },
+      { id: 6, name: "Боковые планки", uri: sidePlankImage },
+      { id: 18, name: "Бёрпи с прыжком на короб", uri: boxJumpImage }
     ]
   }
 ];
@@ -107,6 +114,7 @@ export const EXERCISE_DETAILS: ExerciseDetails[] = [
   {
     id: 1,
     name: "Отжимания",
+    uri: pushUpGuideImage,
     overview: "Отжимания - это базовое упражнение для верхней части тела.",
     muscleGroup: "Грудные мышцы, трицепсы, передняя дельтовидная мышца",
     difficultyLevel: "Новичок",
@@ -122,6 +130,7 @@ export const EXERCISE_DETAILS: ExerciseDetails[] = [
   {
     id: 2,
     name: "Приседания",
+    uri: squatGuideImage,
     overview: "Приседания - это эффективное упражнение для ног и ягодиц.",
     muscleGroup: "Квадрицепсы, ягодичные мышцы, задняя поверхность бедра",
     difficultyLevel: "Новичок",
@@ -137,6 +146,7 @@ export const EXERCISE_DETAILS: ExerciseDetails[] = [
   {
     id: 3,
     name: "Планка",
+    uri: plankGuideImage,
     overview: "Планка - это статическое упражнение для укрепления кора тела.",
     muscleGroup: "Прямая и косая мышцы живота, нижняя часть спины, плечи",
     difficultyLevel: "Новичок",
@@ -153,6 +163,7 @@ export const EXERCISE_DETAILS: ExerciseDetails[] = [
   {
     id: 4,
     name: "Берпи",
+    uri: burpeeGuideImage,
     overview:
       "Берпи - это комплексное упражнение, включающее в себя элементы прыжка, отжимания и приседания.",
     muscleGroup:
@@ -172,6 +183,7 @@ export const EXERCISE_DETAILS: ExerciseDetails[] = [
   {
     id: 5,
     name: "Выпады",
+    uri: lungeGuideImage,
     overview:
       "Выпады - это упражнение на нижнюю часть тела, укрепляющее мышцы ног и ягодиц.",
     muscleGroup: "Квадрицепсы, ягодичные мышцы, икры",

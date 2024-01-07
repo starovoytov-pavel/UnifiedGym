@@ -1,10 +1,9 @@
-import React from "react";
-
-import { Text, View } from "react-native";
+import React, { FC } from "react";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import { ExerciseDetails } from "screens/exercise-list/constants";
+import { TabDescription } from "screens/exercise-details/TabDescription";
 
 import { TABS_CONFIG } from "./constants";
 
@@ -14,16 +13,10 @@ interface TabsProps {
   data: ExerciseDetails;
 }
 
-export const ExerciseTabs = ({ data }: TabsProps) => {
-  const renderDescription = (description: string) => () =>
-    (
-      <View>
-        <Text>{description}</Text>
-      </View>
-    );
-
+export const ExerciseTabs: FC<TabsProps> = ({ data }) => {
   return (
     <Tab.Navigator
+      style={{ flex: 1 }}
       screenOptions={{
         tabBarScrollEnabled: true,
         tabBarActiveTintColor: "#6200EE",
@@ -33,11 +26,11 @@ export const ExerciseTabs = ({ data }: TabsProps) => {
         tabBarStyle: { backgroundColor: "#03DAC6" },
       }}
     >
-      {TABS_CONFIG.map((item) => (
+      {TABS_CONFIG.map((tab) => (
         <Tab.Screen
-          key={item.title}
-          name={item.title}
-          component={renderDescription(item.description)}
+          key={tab.key}
+          name={tab.name}
+          children={() => <TabDescription description={tab.description} />}
         />
       ))}
     </Tab.Navigator>

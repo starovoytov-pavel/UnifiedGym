@@ -4,7 +4,11 @@ import { View, Image } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import { EXERCISE_DETAILS, ExerciseDetails } from "screens/exercise-list/constants";
+import { DefaultLayout } from "layouts/DefaultLayout";
+import {
+  EXERCISE_DETAILS,
+  ExerciseDetails,
+} from "screens/exercise-list/constants";
 
 import { ExerciseTabs } from "./Tabs";
 
@@ -20,12 +24,9 @@ type ExerciseStackParamList = {
 type ExerciseDetailProps = {
   route: RouteProp<ExerciseStackParamList, "ExerciseDetail">;
   navigation: StackNavigationProp<ExerciseStackParamList, "ExerciseDetail">;
-} & any
+} & any;
 
-const ExerciseDetail: FC<ExerciseDetailProps> = ({
-  route,
-  navigation,
-}) => {
+const ExerciseDetail: FC<ExerciseDetailProps> = ({ route, navigation }) => {
   const { id } = route.params;
   const [data, setData] = useState<ExerciseDetails | null>(null);
 
@@ -50,16 +51,13 @@ const ExerciseDetail: FC<ExerciseDetailProps> = ({
   }
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.exerciseImage}
-        source={{
-          uri: "https://www.armyprt.com/wp-content/uploads/2023/07/pushups-muscles-worked-1024x692-2.webp",
-        }}
-      />
+    <DefaultLayout>
+      <View style={{ flex: 1 }}>
+        {data.uri && <Image style={styles.exerciseImage} source={data.uri} />}
 
-      <ExerciseTabs data={data} />
-    </View>
+        <ExerciseTabs data={data} />
+      </View>
+    </DefaultLayout>
   );
 };
 
