@@ -4,7 +4,6 @@ import { View, Image } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import { DefaultLayout } from "layouts/DefaultLayout";
 import {
   EXERCISE_DETAILS,
   ExerciseDetails,
@@ -51,13 +50,11 @@ const ExerciseDetail: FC<ExerciseDetailProps> = ({ route, navigation }) => {
   }
 
   return (
-    <DefaultLayout>
-      <View style={{ flex: 1 }}>
-        {data.uri && <Image style={styles.exerciseImage} source={data.uri} />}
+    <View style={{ flex: 1 }}>
+      {data.uri && <Image style={styles.exerciseImage} source={data.uri} />}
 
-        <ExerciseTabs data={data} />
-      </View>
-    </DefaultLayout>
+      <ExerciseTabs data={data} />
+    </View>
   );
 };
 
