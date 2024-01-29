@@ -11,7 +11,7 @@ const Dashboard = () => {
     <DefaultLayout>
       <>
         <View style={styles.card}>
-          <Text>Workout Progress</Text>
+          <Text>Progress and Statistics</Text>
           {/* Add graphs/progress indicators here */}
         </View>
 
@@ -21,8 +21,13 @@ const Dashboard = () => {
         </View>
 
         <View style={styles.card}>
-          <Text>Statistics</Text>
-          {/* Add notifications here */}
+          <Text>My exercises</Text>
+          {/* Add user exercises here */}
+        </View>
+
+        <View style={styles.card}>
+          <Text>My templates</Text>
+          {/* Add user templates here */}
         </View>
 
         <View style={styles.card}>
