@@ -14,10 +14,11 @@
       "assets": ["assets/*"],
       "components": ["components/*"],
       "layouts": ["layouts/*"],
+      "locales": ["locales/*"],
       "navigation": ["navigation/*"],
       "screens": ["screens/*"],
       "store": ["store/*"],
-      "utils": ["utils/*"]
+      "utils": ["utils/*"],
     },
     "outDir": "./build",
     "allowJs": true,
