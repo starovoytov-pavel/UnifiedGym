@@ -22,10 +22,23 @@ const favoriteExercisesSlice = createSlice({
         (exercises) => exercises.id !== action.payload.id
       );
     },
+    addMultipleFavoriteExercises: (state, action) => {
+      const newExercises = action.payload.filter(
+        (newExercise) =>
+          !state.data.some(
+            (existingExercise) => existingExercise.id === newExercise.id
+          )
+      );
+
+      state.data = [...state.data, ...newExercises];
+    },
   },
 });
 
-export const { addFavoriteExercises, removeFavoriteExercises } =
-  favoriteExercisesSlice.actions;
+export const {
+  addFavoriteExercises,
+  removeFavoriteExercises,
+  addMultipleFavoriteExercises,
+} = favoriteExercisesSlice.actions;
 
 export default favoriteExercisesSlice.reducer;
