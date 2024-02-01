@@ -40,4 +40,12 @@ export default StyleSheet.create({
     paddingTop: 10,
     textAlign: "center",
   },
+
+  selectedExercise: {
+  },
+  checkboxIcon: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+  },
 });

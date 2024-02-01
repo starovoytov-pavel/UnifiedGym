@@ -1,39 +1,91 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import { useDispatch } from "react-redux";
+import { Checkbox } from "react-native-paper";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  Button,
+} from "react-native";
 
 import { DefaultLayout } from "layouts/DefaultLayout";
+import { addMultipleFavoriteExercises } from "store/reducers/favoriteExercises";
 
 import { EXERCISE_CATEGORIES, ExerciseCategory, Exercise } from "./constants";
 
 import styles from "./styles";
 
 const ExerciseList = ({ navigation }: any) => {
-  const renderExercise = ({ item }: { item: Exercise }) => (
-    <TouchableOpacity
-      style={styles.exerciseWrapper}
-      onPress={() =>
-        navigation.navigate("ExerciseDetail", { id: item.id, title: item.name })
-      }
-    >
-      {item?.uri && <Image style={styles.exerciseImg} source={item.uri} />}
+  const dispatch = useDispatch();
 
-      <Text style={styles.exerciseText}>{item.name}</Text>
-    </TouchableOpacity>
+  const [selectedExercises, setSelectedExercises] = useState<number[]>([]);
+
+  const toggleExerciseSelection = useCallback(
+    (exerciseId: number) => () => {
+      if (selectedExercises.includes(exerciseId)) {
+        setSelectedExercises((prevValue) =>
+          prevValue.filter((id) => id !== exerciseId)
+        );
+      } else {
+        setSelectedExercises((prevValue) => [...prevValue, exerciseId]);
+      }
+    },
+    [selectedExercises]
   );
 
-  const renderCategory = ({ item }: { item: ExerciseCategory }) => (
-    <View style={styles.categoryWrapper}>
-      <Text style={styles.categoryTitle}>{item.name}</Text>
+  const addSelectedToFavorites = useCallback(() => {
+    dispatch(addMultipleFavoriteExercises(selectedExercises));
+  }, [selectedExercises]);
 
-      <FlatList
-        data={item.exercises}
-        renderItem={renderExercise}
-        keyExtractor={(exercise) => String(exercise.id)}
-        numColumns={2}
-        key={EXERCISE_CATEGORIES.length}
-      />
-    </View>
+  const renderExercise = useCallback(
+    ({ item }: { item: Exercise }) => {
+      const isSelected = selectedExercises.includes(item.id);
+
+      return (
+        <TouchableOpacity
+          style={[
+            styles.exerciseWrapper,
+            isSelected && styles.selectedExercise,
+          ]}
+          onPress={() =>
+            navigation.navigate("ExerciseDetail", {
+              id: item.id,
+              title: item.name,
+            })
+          }
+          onLongPress={toggleExerciseSelection(item.id)}
+        >
+          {isSelected && (
+            <Checkbox status={isSelected ? "checked" : "unchecked"} />
+          )}
+
+          {item?.uri && <Image style={styles.exerciseImg} source={item.uri} />}
+
+          <Text style={styles.exerciseText}>{item.name}</Text>
+        </TouchableOpacity>
+      );
+    },
+    [selectedExercises]
+  );
+
+  const renderCategory = useCallback(
+    ({ item }: { item: ExerciseCategory }) => (
+      <View style={styles.categoryWrapper}>
+        <Text style={styles.categoryTitle}>{item.name}</Text>
+
+        <FlatList
+          data={item.exercises}
+          renderItem={renderExercise}
+          keyExtractor={(exercise) => String(exercise.id)}
+          numColumns={2}
+          key={EXERCISE_CATEGORIES.length}
+        />
+      </View>
+    ),
+    [selectedExercises]
   );
 
   return (
@@ -43,6 +95,8 @@ const ExerciseList = ({ navigation }: any) => {
         renderItem={renderCategory}
         keyExtractor={(category) => String(category.id)}
       />
+
+      <Button title="Add to Favorites" onPress={addSelectedToFavorites} />
     </DefaultLayout>
   );
 };

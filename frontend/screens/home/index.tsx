@@ -1,17 +1,17 @@
 import React from "react";
 
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 import { DefaultLayout } from "layouts/DefaultLayout";
 
 import styles from "./styles";
 
-const Dashboard = () => {
+const Home = ({ navigation }) => {
   return (
     <DefaultLayout>
       <>
         <View style={styles.card}>
-          <Text>Workout Progress</Text>
+          <Text>Progress and Statistics</Text>
           {/* Add graphs/progress indicators here */}
         </View>
 
@@ -20,9 +20,16 @@ const Dashboard = () => {
           {/* Add a calendar/list of upcoming workouts here */}
         </View>
 
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate("MyExercises")}
+        >
+          <Text>My exercises</Text>
+        </TouchableOpacity>
+
         <View style={styles.card}>
-          <Text>Statistics</Text>
-          {/* Add notifications here */}
+          <Text>My templates</Text>
+          {/* Add user templates here */}
         </View>
 
         <View style={styles.card}>
@@ -34,4 +41,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
