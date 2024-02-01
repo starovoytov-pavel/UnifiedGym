@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { useDispatch } from "react-redux";
 import { Checkbox } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   Text,
@@ -12,14 +12,19 @@ import {
 } from "react-native";
 
 import { DefaultLayout } from "layouts/DefaultLayout";
-import { addMultipleFavoriteExercises } from "store/reducers/favoriteExercises";
 
-import { EXERCISE_CATEGORIES, ExerciseCategory, Exercise } from "./constants";
+import { fetchAllExercises } from "store/thunks/exercises";
+import { exercisesSelector } from "store/selectors/exercises";
+import { updateFavoriteExercises } from "store/thunks/favoriteExercises";
+
+import { ExerciseCategory, Exercise } from "./constants";
 
 import styles from "./styles";
 
 const ExerciseList = ({ navigation }: any) => {
   const dispatch = useDispatch();
+
+  const { data, loading } = useSelector(exercisesSelector);
 
   const [selectedExercises, setSelectedExercises] = useState<number[]>([]);
 
@@ -37,7 +42,7 @@ const ExerciseList = ({ navigation }: any) => {
   );
 
   const addSelectedToFavorites = useCallback(() => {
-    dispatch(addMultipleFavoriteExercises(selectedExercises));
+    dispatch(updateFavoriteExercises(selectedExercises));
   }, [selectedExercises]);
 
   const renderExercise = useCallback(
@@ -81,17 +86,25 @@ const ExerciseList = ({ navigation }: any) => {
           renderItem={renderExercise}
           keyExtractor={(exercise) => String(exercise.id)}
           numColumns={2}
-          key={EXERCISE_CATEGORIES.length}
+          key={data.length}
         />
       </View>
     ),
     [selectedExercises]
   );
 
+  useEffect(() => {
+    dispatch(fetchAllExercises());
+  }, []);
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <DefaultLayout>
       <FlatList
-        data={EXERCISE_CATEGORIES}
+        data={data}
         renderItem={renderCategory}
         keyExtractor={(category) => String(category.id)}
       />

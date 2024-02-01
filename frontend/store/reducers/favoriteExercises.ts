@@ -1,44 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import {
+  fetchFavoriteExercises,
+  updateFavoriteExercises,
+} from "store/thunks/favoriteExercises";
+
 const initialState = {
   data: [],
+  loading: false,
+  error: null,
 };
 
 const favoriteExercisesSlice = createSlice({
   name: "favoriteExercises",
   initialState,
-  reducers: {
-    addFavoriteExercises: (state, action) => {
-      const existingItem = state.data.find(
-        (exercises) => exercises.id === action.payload.id
-      );
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFavoriteExercises.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchFavoriteExercises.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchFavoriteExercises.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
 
-      if (!existingItem) {
-        state.data.push(action.payload);
-      }
-    },
-    removeFavoriteExercises: (state, action) => {
-      state.data = state.data.filter(
-        (exercises) => exercises.id !== action.payload.id
-      );
-    },
-    addMultipleFavoriteExercises: (state, action) => {
-      const newExercises = action.payload.filter(
-        (newExercise) =>
-          !state.data.some(
-            (existingExercise) => existingExercise.id === newExercise.id
-          )
-      );
-
-      state.data = [...state.data, ...newExercises];
-    },
+      .addCase(updateFavoriteExercises.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateFavoriteExercises.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(updateFavoriteExercises.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
-
-export const {
-  addFavoriteExercises,
-  removeFavoriteExercises,
-  addMultipleFavoriteExercises,
-} = favoriteExercisesSlice.actions;
 
 export default favoriteExercisesSlice.reducer;

@@ -3,7 +3,7 @@ import { View, Text, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const MyExercises = () => {
-  const favoriteExercises = useSelector(state => state.favoriteExercises.data);
+  const favoriteExercisesIds = useSelector(state => state.favoriteExercises.data);
 
   return (
     <View>
